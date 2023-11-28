@@ -83,7 +83,7 @@ Your WebApp is deployed publicly by default. You can add a private endpoint to y
 | --- | --- | ------------- |
 |DEPLOYMENT_TARGET|**Local** OR **Azure**|Deployment Target. Local or Azure|
 |AZURE_OPENAI_RESOURCE_ENDPOINT||The URL starting with https:// of your Azure OpenAI Service| 
-|AZURE_OPENAI_ENGINE||The Deployment Name of your Azure OpenAI model|
+|AZURE_OPENAI_ENGINE||The **Deployment Name** of your Azure OpenAI model|
 |AZURE_OPENAI_KEY||An **access key** for your Azure OpenAI resource|
-|AZURE_CLIENT_ID||clientID of the managed identity used by your WebApp to authenticate to Azure OpenAI|
+|AZURE_CLIENT_ID||**clientID** of the managed identity used by your WebApp to authenticate to Azure OpenAI|
 |AZURE_OPENAI_API_VERSION|2023-07-01-preview|API version for Azure OpenAI resource|
