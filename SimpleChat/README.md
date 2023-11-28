@@ -1,4 +1,4 @@
-# Very Simple Chat App with AOAI
+# Very Simple Chat App with Azure OpenAI
 
 This repo contains some code for a very simple chat webapp that integrates with Azure OpenAI. Note: some portions of the app use preview APIs.  
 You do not need nodejs or otehr tools. This is purely HTML/CSS/Javascript. IT can be helpfull on desktop/laptop with strict restrictions.
