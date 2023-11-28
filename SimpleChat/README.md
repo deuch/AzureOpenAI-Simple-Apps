@@ -35,9 +35,9 @@ You do not need nodejs or otehr tools. This is purely HTML/CSS/Javascript. IT ca
 #### Deploy with Azure CLI
 
 1. Create a managed identity to handle the authentication from the App Service WebApp to Azure OpenAI
-    - Create a User Managed Identiy if needed [how to](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities?pivots=identity-mi-methods-azp)
+    - Create a User Managed Identiy if needed with this [how to](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities?pivots=identity-mi-methods-azp)
     - Please follow [this guide](https://learn.microsoft.com/en-us/azure/app-service/overview-managed-identity?tabs=portal%2Chttp#add-a-user-assigned-identity) to bind the Managed Identity to your WebApp 
-    - Give "Cognitive Services OpenAI User" role to the Managed Identity to the Azure OpenAI ressource 
+    - Assign the role **Cognitive Services OpenAI User** to the Managed Identity on the Azure OpenAI ressource 
 
 2. Rename the `appsettings-sample.json` to `appsettings.json` file and Update the environment variables
     
@@ -61,7 +61,7 @@ You do not need nodejs or otehr tools. This is purely HTML/CSS/Javascript. IT ca
 
     `az webapp config appsettings set -g <resource-group-name> -n <new-app-name> --settings "@.\appsettings.json"`
 
-    Deployment will take several minutes. When it completes, you should be able to navigate to your app at {app-name}.azurewebsites.net.
+    Deployment will take several minutes. When it completes, you should be able to navigate to your app at https://{app-name}.azurewebsites.net.
 
 #### Add an identity provider
 
