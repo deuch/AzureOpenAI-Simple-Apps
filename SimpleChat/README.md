@@ -1,7 +1,7 @@
 # Very Simple Chat App with Azure OpenAI
 
 This repo contains some code for a very simple chat webapp that integrates with Azure OpenAI. Note: some portions of the app use preview APIs.  
-You do not need nodejs or otehr tools. This is purely HTML/CSS/Javascript. It can be helpfull on desktop/laptop with strict restrictions with no way to install tooling.
+You do not need nodejs or other tools. This is purely HTML/CSS/Javascript. It can be helpfull on desktop/laptop with strict restrictions with no way to install tooling.
 
 ## Prerequisites
 - An existing Azure OpenAI resource and model deployment of a chat model (e.g. `gpt-35-turbo`, `gpt-4`)
