@@ -1,0 +1,4 @@
+azure-identity
+Flask==2.3.2
+openai==0.28
+python-dotenv==1.0.0

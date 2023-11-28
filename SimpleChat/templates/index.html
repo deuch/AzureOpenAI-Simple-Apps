@@ -1,0 +1,200 @@
+<html>
+<head>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    #chat-container {
+      width: 80%;
+      height: 80%;
+      margin: auto;
+      border: 1px solid black;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #chat-header {
+      height: 10%;
+      background-color: lightblue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #chat-header h1 {
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      color: white;
+    }
+
+    #chat-body {
+      height: 80%;
+      overflow-y: scroll;
+      padding: 10px;
+    }
+
+    #chat-body .message {
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    #chat-body .message.user {
+      background-color: lightgreen;
+      align-self: flex-end;
+    }
+
+    #chat-body .message.assistant {
+      background-color: lightpink;
+      align-self: flex-start;
+    }
+
+    #chat-footer {
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    #chat-footer input {
+      width: 80%;
+      height: 80%;
+      border: 1px solid gray;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 18px;
+    }
+
+    #chat-footer button {
+      width: 15%;
+      height: 80%;
+      border: none;
+      border-radius: 10px;
+      background-color: lightblue;
+      font-size: 18px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="chat-header">
+      <h1>Chat GPT</h1>
+    </div>
+    <div id="chat-body">
+      <!-- Messages will be appended here -->
+    </div>
+    <div id="chat-footer">
+      <input id="user-input" type="text" placeholder="Écrivez votre message ici" />
+      <button id="send-button" onclick="sendMessage()">Envoyer</button>
+    </div>
+  </div>
+  <script>
+    // Get the elements from the document
+    const chatBody = document.getElementById("chat-body");
+    const userInput = document.getElementById("user-input");
+    const sendButton = document.getElementById("send-button");
+    const chatHistory = [{"role":"system","content":"You are an AI assistant that helps people find information."}];
+
+    userInput.addEventListener("keyup", function(event) {
+    // Vérifier si la touche appuyée est la touche Entrée
+    if (event.keyCode === 13) {
+      // Déclencher un clic sur le bouton
+      sendMessage();
+    }
+    });
+
+    // Define a function to append a message to the chat body
+    function appendMessage(text, sender) {
+      // Create a new div element for the message
+      const message = document.createElement("div");
+      // Add the message class and the sender class
+      message.classList.add("message", sender);
+      // Set the text content of the message
+      message.textContent = text;
+      // Append the message to the chat body
+      chatBody.appendChild(message);
+      // Scroll to the bottom of the chat body
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // Define a function to send a message from the user
+    function sendMessage() {
+      // Get the value of the user input
+      const userInputValue = userInput.value;
+      // Check if the user input is not empty
+      if (userInputValue) {
+        // Append the user message to the chat body
+        appendMessage(userInputValue, "user");
+        // Clear the user input
+        userInput.value = "";
+        // Disable the send button
+        sendButton.disabled = true;
+        // Call the GPT API to get a response from the assistant
+        callGPT(userInputValue);
+      }
+    }
+
+    // Define a function to call the GPT API
+    function callGPT(userInputValue) {
+      // Create a new XMLHttpRequest object
+      const xhr = new XMLHttpRequest();
+      // Set the request method and the URL
+      //const target = new URL('https://france-openai-sdec.openai.azure.com/openai/deployments/sdec-openai-gpt-35-turbo/chat/completions?api-version=2023-07-01-preview');
+      const target = new URL(window.location.href+'/chat');
+      
+      console.log(target);
+      // Set the request body
+      
+      chatHistory.push({"role":"user","content":userInputValue});
+
+      const requestBody = {
+        messages: chatHistory,
+        max_tokens: 800,
+        temperature: 0.7,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        top_p: 0.95,
+        stop: null
+      };
+      
+      console.log(JSON.stringify(requestBody));
+
+      xhr.open("POST", target);
+      // Set the request headers
+      xhr.setRequestHeader("Content-Type", "application/json");
+      
+      // Set the request onload function
+      xhr.onload = function () {
+        // Check if the status is 200 (OK)
+        if (xhr.status === 200) {
+          // Parse the response as JSON
+          const response = JSON.parse(xhr.responseText);
+          
+          // Get the text from the response
+          const text = response.choices[0].message.content;
+          chatHistory.push({"role":"system","content":text});
+          // Append the assistant message to the chat body
+          appendMessage(text, "assistant");
+          // Enable the send button
+          sendButton.disabled = false;
+        } else {
+          // Handle the error
+          console.error(xhr.statusText);
+        }
+      };
+      // Set the request onerror function
+      xhr.onerror = function () {
+        // Handle the error
+        console.error(xhr.statusText);
+      };
+      // Send the request
+      xhr.send(JSON.stringify(requestBody));
+    }
+  </script>
+</body>
+</html>
