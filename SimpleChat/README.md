@@ -26,7 +26,9 @@ You do not need nodejs or otehr tools. This is purely HTML/CSS/Javascript. IT ca
 
 2. Install the python dependencies with the command `pip install -r requirements.txt`. This will install the needed librairies (Flask, openai ...)
 
-3. You can see the local running app at http://127.0.0.1:5000.
+3. Start the app with `python app.py`
+
+4. You can see the local running app at http://127.0.0.1:5000.
 
 ### Deploy on Azure
 
