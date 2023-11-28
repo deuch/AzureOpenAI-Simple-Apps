@@ -51,17 +51,17 @@ You do not need nodejs or otehr tools. This is purely HTML/CSS/Javascript. IT ca
 
 3. Create the Azure WebApp
 
-You can use the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) to deploy the app from your local machine. Make sure you have version 2.48.1 or later.
+    You can use the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) to deploy the app from your local machine. Make sure you have version 2.48.1 or later.
 
-If this is your first time deploying the app, you can use [az webapp up](https://learn.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az-webapp-up). Run the following command from the root folder of the repo, updating the placeholder values to your desired app name, resource group, location, and subscription. You can also change the SKU if desired.
+    If this is your first time deploying the app, you can use [az webapp up](https://learn.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az-webapp-up). Run the following command from the root folder of the repo, updating the placeholder values to your desired app name, resource group, location, and subscription. You can also change the SKU if desired.
 
-`az webapp up --runtime PYTHON:3.9 --sku B1 --name <new-app-name> --resource-group <resource-group-name> --location <azure-region> --subscription <subscription-name>`
+    `az webapp up --runtime PYTHON:3.9 --sku B1 --name <new-app-name> --resource-group <resource-group-name> --location <azure-region> --subscription <subscription-name>`
 
-After that, you need to apply the custom configuration to the AppService WebApp (the app will restart)
+    After that, you need to apply the custom configuration to the AppService WebApp (the app will restart)
 
-`az webapp config appsettings set -g <resource-group-name> -n <new-app-name> --settings "@.\appsettings.json"`
+    `az webapp config appsettings set -g <resource-group-name> -n <new-app-name> --settings "@.\appsettings.json"`
 
-Deployment will take several minutes. When it completes, you should be able to navigate to your app at {app-name}.azurewebsites.net.
+    Deployment will take several minutes. When it completes, you should be able to navigate to your app at {app-name}.azurewebsites.net.
 
 #### Add an identity provider
 
