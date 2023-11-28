@@ -20,6 +20,7 @@ You do not need nodejs or otehr tools. This is purely HTML/CSS/Javascript. IT ca
     - `AZURE_OPENAI_RESOURCE_ENDPOINT`
     - `AZURE_OPENAI_ENGINE`
     - `AZURE_OPENAI_KEY`
+    - `AZURE_OPENAI_API_VERSION`
 
     Please refer and configure your settings as described in the [Environment variables](#environment-variables) section.
 
@@ -44,6 +45,7 @@ You do not need nodejs or otehr tools. This is purely HTML/CSS/Javascript. IT ca
     - `AZURE_OPENAI_RESOURCE_ENDPOINT`
     - `AZURE_OPENAI_ENGINE`
     - `AZURE_OPENAI_KEY`
+    - `AZURE_OPENAI_API_VERSION`
 
 3. Create the Azure WebApp
 
@@ -81,3 +83,4 @@ Your WebApp is deployed publicly by default. You can add a private endpoint to y
 |AZURE_OPENAI_ENGINE||The Deployment Name of your Azure OpenAI model|
 |AZURE_OPENAI_KEY||An **access key** for your Azure OpenAI resource|
 |AZURE_CLIENT_ID||clientID of the managed identity used by your WebApp to authenticate to Azure OpenAI|
+|AZURE_OPENAI_API_VERSION|2023-07-01-preview|API version for Azure OpenAI resource|
