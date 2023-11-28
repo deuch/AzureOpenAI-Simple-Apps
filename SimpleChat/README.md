@@ -78,7 +78,7 @@ Your WebApp is deployed publicly by default. You can add a private endpoint to y
 
 | App Setting | Value | Note |
 | --- | --- | ------------- |
-|DEPLOYMENT_TARGET||Deployment Target. Local or Azure|
+|DEPLOYMENT_TARGET|**Local** OR **Azure**|Deployment Target. Local or Azure|
 |AZURE_OPENAI_RESOURCE_ENDPOINT||The URL starting with https:// of your Azure OpenAI Service| 
 |AZURE_OPENAI_ENGINE||The Deployment Name of your Azure OpenAI model|
 |AZURE_OPENAI_KEY||An **access key** for your Azure OpenAI resource|
