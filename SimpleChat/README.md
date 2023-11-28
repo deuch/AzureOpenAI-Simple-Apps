@@ -11,9 +11,9 @@ You do not need nodejs or other tools. This is purely HTML/CSS/Javascript. It ca
 
 ## Deploy the app
 
-### Deploy from your local machine
+### Deploy on your local machine
 
-#### Local Setup: Basic Chat Experience
+#### Local Setup
 1. Rename the `.env_sample` to `.env` file and Update the environment variables
     
     These variables are required:
