@@ -66,7 +66,6 @@ def chat():
      stop=messages['stop'])
 
    print(completion.choices[0].message.content)
-   #print(response['choices'][0]['message']['content'])
    
    return completion.model_dump_json()
 

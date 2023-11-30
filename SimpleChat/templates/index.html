@@ -58,6 +58,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px;
+      column-gap: 5px;
     }
 
     #chat-footer input {
@@ -72,12 +73,17 @@
     #chat-footer button {
       width: 15%;
       height: 80%;
-      border: none;
+      border: 1px solid gray;
       border-radius: 10px;
       background-color: lightblue;
       font-size: 18px;
       color: white;
     }
+
+    #chat-footer button:hover{
+    background: lightseagreen;  
+  }
+
   </style>
 </head>
 <body>
@@ -90,6 +96,7 @@
     </div>
     <div id="chat-footer">
       <input id="user-input" type="text" placeholder="Écrivez votre message ici" />
+      <button id="send-button" onclick="clearHistory()">Clear</button>
       <button id="send-button" onclick="sendMessage()">Envoyer</button>
     </div>
   </div>
@@ -120,6 +127,13 @@
       chatBody.appendChild(message);
       // Scroll to the bottom of the chat body
       chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function clearHistory() {
+      // Create a new div element for the message
+      chatBody.innerHTML = '';
+      chatBody.scrollTop = 0;
+      chatHistory = [{"role":"system","content":"You are an AI assistant that helps people find information."}];
     }
 
     // Define a function to send a message from the user
