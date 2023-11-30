@@ -1,29 +1,19 @@
 import os
-import openai
+import httpx
 
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, jsonify)
 from werkzeug.utils import secure_filename
-from azure.identity import DefaultAzureCredential
+from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from dotenv import load_dotenv
+from openai import AzureOpenAI
 
 load_dotenv()
-
-
-os.environ['http_proxy'] = 'http://localhost:8080'
-os.environ['https_proxy'] = 'http://localhost:8080'
-
 
 DEPLOYMENT_TARGET=os.environ.get('DEPLOYMENT_TARGET') #Local or Azure
 AZURE_OPENAI_RESOURCE_ENDPOINT=os.environ.get('AZURE_OPENAI_RESOURCE_ENDPOINT')
 AZURE_OPENAI_ENGINE=os.environ.get('AZURE_OPENAI_ENGINE')
 AZURE_OPENAI_API_VERSION=os.environ.get('AZURE_OPENAI_API_VERSION')
-
-print(DEPLOYMENT_TARGET.lower())
-
-openai.api_base = AZURE_OPENAI_RESOURCE_ENDPOINT
-openai.api_version = AZURE_OPENAI_API_VERSION
-openai.verify_ssl_certs = False
 
 app = Flask(__name__)
 
@@ -45,17 +35,24 @@ def chat():
    
    if DEPLOYMENT_TARGET.lower()=="azure":
      # Deployment in Azure 
-     default_credential = DefaultAzureCredential()
-     openai.api_type = "azure_ad"
-     token = default_credential.get_token("https://cognitiveservices.azure.com")
-     openai.api_key = token.token
+     token_provider = get_bearer_token_provider(DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default")
+     client = AzureOpenAI(
+       api_version = AZURE_OPENAI_API_VERSION,
+       azure_ad_token_provider = token_provider,
+       azure_endpoint = AZURE_OPENAI_RESOURCE_ENDPOINT,
+       http_client=httpx.Client(verify=True)
+     )
    else: # Local Deployment
      AZURE_OPENAI_API_KEY=os.getenv('AZURE_OPENAI_API_KEY')
-     openai.api_type = "azure"
-     openai.api_key = AZURE_OPENAI_API_KEY
+     client = AzureOpenAI(
+       api_version = AZURE_OPENAI_API_VERSION,
+       api_key = AZURE_OPENAI_API_KEY,
+       azure_endpoint = AZURE_OPENAI_RESOURCE_ENDPOINT,
+       http_client=httpx.Client(verify=False)
+     )
 
-   response = openai.ChatCompletion.create(
-     engine=AZURE_OPENAI_ENGINE,
+   completion = client.chat.completions.create(
+     model=AZURE_OPENAI_ENGINE,
      messages = messages['messages'],
      temperature=messages['temperature'],
      max_tokens=messages['max_tokens'],
@@ -64,9 +61,10 @@ def chat():
      presence_penalty=messages['presence_penalty'],
      stop=messages['stop'])
 
-   print(response['choices'][0]['message']['content'])
-
-   return response
+   print(completion.choices[0].message.content)
+   #print(response['choices'][0]['message']['content'])
+   
+   return completion.model_dump_json()
 
 if __name__ == '__main__':
    app.run()
