@@ -14,6 +14,10 @@ DEPLOYMENT_TARGET=os.environ.get('DEPLOYMENT_TARGET') #Local or Azure
 AZURE_OPENAI_RESOURCE_ENDPOINT=os.environ.get('AZURE_OPENAI_RESOURCE_ENDPOINT')
 AZURE_OPENAI_ENGINE=os.environ.get('AZURE_OPENAI_ENGINE')
 AZURE_OPENAI_API_VERSION=os.environ.get('AZURE_OPENAI_API_VERSION')
+#SSL_CA_CERTIFICATE=os.environ.get('SSL_CA_CERTIFICATE')
+#PROXY_LIST=os.environ.get('PROXY_LIST')
+#By default, SSL Verify is set to True
+#SSL_VERIFY=True
 
 app = Flask(__name__)
 
@@ -68,4 +72,3 @@ def chat():
 
 if __name__ == '__main__':
    app.run()
-
