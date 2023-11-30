@@ -27,7 +27,7 @@ You do not need nodejs or other tools. This is purely HTML/CSS/Javascript. It ca
 
 2. Install the python dependencies with those commands (This will install the needed librairies (Flask, openai ...)) :
     - `pip install -r requirements.txt` For azure openai 0.28.1 api version 
-    - `pip install -r requirements-AOAI-1.txt` For azyreopenai 1.3.6 api version 
+    - `pip install -r requirements-AOAI-1.txt` For azure openai 1.3.6 api version 
 
 3. Start the app with :
     - `python app.py` For openai 0.28.1 api version
@@ -55,10 +55,10 @@ You do not need nodejs or other tools. This is purely HTML/CSS/Javascript. It ca
     - `AZURE_OPENAI_API_VERSION`
 
 3. Choose the OpenAI version you want to use 0.28.0 or 1.3.6
-    - For azure openai api 0.28.0, remove the `app-aoai-1.x.py` and `requirements-AOAI-1.txt` file
+    - For azure openai api 0.28.0, remove the `app-aoai-1.x.py` and `requirements-AOAI-1.txt` files
     - For azure openai api 1.3.6 : 
         - remove `app.py` and `requirements.txt`
-        - rename `app-aoai-1.x.py` and `requirements-AOAI-1.txt` to respectively `app.py` and `requirements.txt`
+        - rename `app-aoai-1.x.py` and `requirements-AOAI-1.txt` files to respectively `app.py` and `requirements.txt`
 
 4. Create the Azure WebApp
 
